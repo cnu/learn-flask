@@ -1,5 +1,5 @@
 __author__ = 'naren'
-from flask import Flask
+from flask import Flask, render_template
 from sqlalchemy import create_engine, update
 from sqlalchemy.orm import sessionmaker
 from restaurant_db import Base, MenuItem, Restaurant
@@ -10,18 +10,11 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 
 
-@app.route('/')
 @app.route('/restaurants/<int:restaurant_id>/')
 def restaurant_menu(restaurant_id):
     menus = get_menus(restaurant_id)
-    res_name = get_restaurant(restaurant_id).name
-    output = ""
-    output += "<html><body>"
-    output += "<h1>{0}</h1>".format(res_name)
-    for menu in menus:
-        output += menu.name + "</br>" + menu.price + "</br>" + menu.description + "</br>" + "</br>"
-    output += "</body></html>"
-    return output
+    restaurants = get_restaurant(restaurant_id)
+    return render_template('menu.html', restaurant=restaurants, items=menus)
 
 
 # Task 1: Create route for newMenuItem function here
@@ -31,20 +24,21 @@ def restaurant_menu(restaurant_id):
 def new_menu_item(restaurant_id):
     output = ""
     output += "<html><body>"
+    output += "<h1>Create New Menu</h1>"
 
     return output
 
 
 # Task 2: Create route for editMenuItem function here
 
-
+@app.route('/restaurants/<int:restaurant_id>/<int:menu_id>/edit')
 def edit_menu_item(restaurant_id, menu_id):
     return "page to edit a menu item. Task 2 complete!"
 
 
 # Task 3: Create a route for deleteMenuItem function here
 
-
+@app.route('/restaurants/<int:restaurant_id>/<int:menu_id>/delete')
 def del_menu_item(restaurant_id, menu_id):
     return "page to delete a menu item. Task 3 complete!"
 
