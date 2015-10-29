@@ -33,6 +33,9 @@ def new_menu_item(restaurant_id):
 
 @app.route('/restaurants/<int:restaurant_id>/<int:menu_id>/edit')
 def edit_menu_item(restaurant_id, menu_id):
+    output = ""
+    output += "<html><body>"
+    output += "<h1>Create New Menu</h1>"
     return "page to edit a menu item. Task 2 complete!"
 
 
@@ -40,6 +43,9 @@ def edit_menu_item(restaurant_id, menu_id):
 
 @app.route('/restaurants/<int:restaurant_id>/<int:menu_id>/delete')
 def del_menu_item(restaurant_id, menu_id):
+    output = ""
+    output += "<html><body>"
+    output += "<h1>Create New Menu</h1>"
     return "page to delete a menu item. Task 3 complete!"
 
 
